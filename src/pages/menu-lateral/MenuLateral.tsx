@@ -7,21 +7,65 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
+import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
+import { useDrawerContext } from '../../shared/contexts';
 
 interface IMenuLateralProps {
   children: React.ReactNode;
 }
 
+interface IListItemLinkProps {
+  label: string;
+  icon: string;
+  to: string;
+  onClick: (() => void) | undefined;
+}
+
+const ListItemLink: React.FC<IListItemLinkProps> = ({
+  label,
+  icon,
+  to,
+  onClick,
+}) => {
+  const navigate = useNavigate();
+
+  const resolvedPath = useResolvedPath(to);
+  const match = useMatch({ path: resolvedPath.pathname, end: false });
+
+  // useCallback apenas nos contextos, é melhor
+  const handleClick = () => {
+    onClick?.();
+    navigate(to);
+  };
+
+  return (
+    <ListItemButton onClick={handleClick} selected={!!match}>
+      <ListItemIcon>
+        <Icon>{icon}</Icon>
+      </ListItemIcon>
+      <ListItemText primary={label} />
+    </ListItemButton>
+  );
+};
+
 export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
   const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
 
   return (
     <>
-      <Drawer variant="permanent">
+      <Drawer
+        variant={smDown ? 'temporary' : 'permanent'}
+        open={isDrawerOpen}
+        onClose={toggleDrawerOpen}
+      >
         <Box
           width={theme.spacing(28)}
           display="flex"
@@ -44,17 +88,17 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
           <Divider />
           <Box flex={1}>
             <List component="nav" aria-label="main mailbox folders">
-              <ListItemButton>
-                <ListItemIcon>
-                  <Icon>home</Icon>
-                </ListItemIcon>
-                <ListItemText primary="Página Inicial" />
-              </ListItemButton>
+              <ListItemLink
+                icon="home"
+                label="Página Inicial"
+                to="/pagina-inicial"
+                onClick={smDown ? toggleDrawerOpen : undefined}
+              />
             </List>
           </Box>
         </Box>
       </Drawer>
-      <Box height="100vh" marginLeft={theme.spacing(28)}>
+      <Box height="100vh" marginLeft={smDown ? 0 : theme.spacing(28)}>
         {children}
       </Box>
     </>
