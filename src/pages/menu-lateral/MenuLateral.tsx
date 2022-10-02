@@ -15,10 +15,6 @@ import React from 'react';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useDrawerContext } from '../../shared/contexts';
 
-interface IMenuLateralProps {
-  children: React.ReactNode;
-}
-
 interface IListItemLinkProps {
   label: string;
   icon: string;
@@ -53,11 +49,15 @@ const ListItemLink: React.FC<IListItemLinkProps> = ({
   );
 };
 
+interface IMenuLateralProps {
+  children: React.ReactNode;
+}
+
 export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
+  const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
 
   return (
     <>
@@ -87,13 +87,16 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
 
           <Divider />
           <Box flex={1}>
-            <List component="nav" aria-label="main mailbox folders">
-              <ListItemLink
-                icon="home"
-                label="Página Inicial"
-                to="/pagina-inicial"
-                onClick={smDown ? toggleDrawerOpen : undefined}
-              />
+            <List component="nav">
+              {drawerOptions.map(drawerOption => (
+                <ListItemLink
+                  key={drawerOption.path}
+                  label={drawerOption.label}
+                  icon={drawerOption.icon}
+                  to={drawerOption.path}
+                  onClick={smDown ? toggleDrawerOpen : undefined}
+                />
+              ))}
             </List>
           </Box>
         </Box>
