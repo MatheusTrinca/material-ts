@@ -9,11 +9,11 @@ import {
   ListItemText,
   useMediaQuery,
   useTheme,
+  Box,
 } from '@mui/material';
-import { Box } from '@mui/system';
 import React from 'react';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
-import { useDrawerContext } from '../../shared/contexts';
+import { useAppThemeContext, useDrawerContext } from '../../contexts';
 
 interface IListItemLinkProps {
   label: string;
@@ -59,6 +59,8 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
 
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
 
+  const { toggleTheme } = useAppThemeContext();
+
   return (
     <>
       <Drawer
@@ -97,6 +99,16 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
                   onClick={smDown ? toggleDrawerOpen : undefined}
                 />
               ))}
+            </List>
+          </Box>
+          <Box>
+            <List component="nav">
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <Icon>dark_mode</Icon>
+                </ListItemIcon>
+                <ListItemText primary="Alternar tema" />
+              </ListItemButton>
             </List>
           </Box>
         </Box>

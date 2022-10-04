@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
-import { MenuLateral } from './pages';
 import { AppRoutes } from './routes';
+import { MenuLateral } from './shared/components';
 import { DrawerProvider } from './shared/contexts';
 import { AppThemeProvider } from './shared/contexts/ThemeContext';
 
@@ -18,4 +18,4 @@ export const App = () => {
   );
 };
 
-// #10 18:00
+// #15
