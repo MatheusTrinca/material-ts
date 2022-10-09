@@ -8,7 +8,7 @@ import {
   useTheme,
 } from '@mui/material';
 
-interface IBarraDeFerramentasProps {
+interface IFerramentasDeListagemProps {
   textDaBusca?: string;
   mostrarInputBusca?: boolean;
   aoMostrarTextoDeBusca?: (novoText: string) => void;
@@ -17,7 +17,7 @@ interface IBarraDeFerramentasProps {
   aoClicarEmNovo?: () => void;
 }
 
-export const BarraDeFerramentas: React.FC<IBarraDeFerramentasProps> = ({
+export const FerramentasDeListagem: React.FC<IFerramentasDeListagemProps> = ({
   textDaBusca = '',
   mostrarInputBusca = false,
   aoMostrarTextoDeBusca,
