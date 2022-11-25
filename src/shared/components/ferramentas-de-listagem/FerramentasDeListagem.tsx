@@ -8,6 +8,8 @@ import {
   useTheme,
 } from '@mui/material';
 
+import { Environment } from '../../environment';
+
 interface IFerramentasDeListagemProps {
   textDaBusca?: string;
   mostrarInputBusca?: boolean;
@@ -41,7 +43,7 @@ export const FerramentasDeListagem: React.FC<IFerramentasDeListagemProps> = ({
       {mostrarInputBusca && (
         <TextField
           size="small"
-          placeholder="Pesquisar..."
+          placeholder={Environment.INPUT_DE_BUSCA}
           value={textDaBusca}
           onChange={e => aoMostrarTextoDeBusca?.(e.target.value)}
           InputProps={{

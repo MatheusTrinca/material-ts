@@ -97,7 +97,7 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeListagemProps> = ({
             onClick={aoClicarEmSalvarEFechar}
           >
             <Typography variant="button" noWrap={true}>
-              Salvar e Voltar
+              Salvar e Fechar
             </Typography>
           </Button>
         )}
