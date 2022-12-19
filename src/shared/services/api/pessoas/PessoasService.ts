@@ -29,13 +29,15 @@ const getAll = async (
 
     const { data, headers } = await Api.get(urlRelativa);
 
+    console.log(Number(headers['x-total-count']));
+
     if (data) {
       return {
         data,
-        totalCount:
-          Number(headers['x-total-count']) || Environment.LIMITE_DE_LINHAS,
+        totalCount: Number(headers['x-total-count']),
       };
     }
+
     return new Error('Erro ao listar os registros.');
   } catch (error) {
     console.log(error);
