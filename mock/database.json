@@ -1,18 +1,6 @@
 {
   "pessoas": [
     {
-      "id": 3,
-      "email": "john@gmail.com",
-      "cidadeId": 1,
-      "nomeCompleto": "John Trinca"
-    },
-    {
-      "id": 4,
-      "email": "eduardo@gmail.com",
-      "cidadeId": 1,
-      "nomeCompleto": "Eduardo Trinca"
-    },
-    {
       "id": 5,
       "email": "mariana@gmail.com",
       "cidadeId": 1,
